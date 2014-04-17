@@ -31,8 +31,8 @@ test[,'pred'] <- test[,'saleN'] * p
 agg <- aggregate(test[,'pred'],by=list(test[,'moduleName'],test[,'componentName'],test[,'repairYear'],test[,'repairMonth']),FUN=sum)
 
 #make submission
-sub <- read.csv(settings$KAGGLE_OUTPUT_MAPPING_PATH,stringsAsFactors=FALSE)
+sub <- read.csv(paste(settings$DATA_PATH,'Output_TargetID_Mapping.csv',sep=''),stringsAsFactors=FALSE)
 sub <- merge(sub, agg,by=1:4,all.x=TRUE)
 sub[is.na(sub[,5]),5] <- 0
 submission <- data.frame(id=1:nrow(sub),target=sub[,5])
-write.csv(submission,paste(settings$SUBMISSION_PATH, "submission.csv",sep=''),quote=FALSE,row.names=FALSE)
+write.csv(submission,paste(settings$SUBMISSIONS_PATH, "submission.csv",sep=''),quote=FALSE,row.names=FALSE)

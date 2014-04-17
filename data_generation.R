@@ -80,8 +80,8 @@ createIDForUniqueValueCombos <- function(data)
 #removes moduleComponents if there was less than repairN_cut repairs in the dataset to reduce the number of required parameters
 createDataset <- function(settings, repairN_cut=20, lastYear=2011, lastMonth=7)
 {
-  repairData <- read.csv(settings$KAGGLE_REPAIR_DATA_PATH, stringsAsFactors=FALSE)
-  salesData <- read.csv(settings$KAGGLE_SALE_DATA_PATH, stringsAsFactors=FALSE)
+  repairData <- read.csv(paste(settings$DATA_PATH,'RepairTrain.csv',sep=''), stringsAsFactors=FALSE)
+  salesData <- read.csv(paste(settings$DATA_PATH,'SaleTrain.csv',sep=''), stringsAsFactors=FALSE)
   
   #simple imputation for missing sales data
   salesData <- addSalesInformation(salesData,2006,5,"M7",50000)
@@ -168,13 +168,13 @@ createStanData <- function(data)
 }
 
 #generate data and save to disk
-generateData <- function(settings)
+generateData <- function(settings, train_file, test_file)
 {
   allData <- createDataset(settings)    
   train <- allData[allData$repairYear<2010,]
   test <- allData[allData$repairYear>=2010,]
-  write.csv(train, settings$CUSTOM_TRAIN_DATA_PATH, quote=FALSE, row.names=FALSE)
-  write.csv(test, settings$CUSTOM_TEST_DATA_PATH, quote=FALSE, row.names=FALSE)
+  write.csv(train, train_file, quote=FALSE, row.names=FALSE)
+  write.csv(test, test_file, quote=FALSE, row.names=FALSE)
 }
 
 #load dataset (train or test) from disk, if missing generate.
@@ -186,19 +186,22 @@ loadData <- function(type, settings)
     return
   }
   
-  if(!file.exists(settings$CUSTOM_TRAIN_DATA_PATH) | !file.exists(settings$CUSTOM_TEST_DATA_PATH))
+  train_file <- paste(settings$DATA_PATH, 'custom_train.csv', sep='')
+  test_file <- paste(settings$DATA_PATH, 'custom_test.csv', sep='')
+  
+  if(!file.exists(train_file) | !file.exists(test_file))
   {
     cat("Data cannot be loaded from files, generating...\n")  
-    generateData(settings)
+    generateData(settings, train_file, test_file)
   }
   
   if(type=="train")
   {
-    return(read.csv(settings$CUSTOM_TRAIN_DATA_PATH, stringsAsFactors=FALSE))
+    return(read.csv(train_file, stringsAsFactors=FALSE))
   }
   
   if(type=='test')
   {
-    return(read.csv(settings$CUSTOM_TEST_DATA_PATH, stringsAsFactors=FALSE))
+    return(read.csv(test_file, stringsAsFactors=FALSE))
   }
 }

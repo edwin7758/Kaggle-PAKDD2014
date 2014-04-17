@@ -1,4 +1,3 @@
-library(rstan)
 library(rjson)
 source("data_generation.R")
 settings <- fromJSON(file="SETTINGS.json")

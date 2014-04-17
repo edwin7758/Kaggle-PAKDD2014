@@ -1,0 +1,10 @@
+{
+	"KAGGLE_REPAIR_DATA_PATH": "data/RepairTrain.csv",
+	"KAGGLE_SALE_DATA_PATH": "data/SaleTrain.csv",
+	"KAGGLE_OUTPUT_MAPPING_PATH": "data/Output_TargetID_Mapping.csv", 
+	"CUSTOM_TRAIN_DATA_PATH": "data/custom_train.csv",
+	"CUSTOM_TEST_DATA_PATH": "data/custom_test.csv",
+	"MODELS_PATH": "stan_models/",
+	"PARAMETERS_PATH": "pre-learned_parameters/",
+	"SUBMISSION_PATH": "submissions/"
+}

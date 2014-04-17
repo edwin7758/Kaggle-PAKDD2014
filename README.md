@@ -9,7 +9,7 @@ Linux Mint 16
 * rjson (R command to install: install.packages("rjson"))
 * RStan v2.2, step-by-step installation guide: https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started
 
-Note: Paths to the original data files from Kaggle (Output_TargetID_Mapping.csv, RepairTrain.csv, SaleTrain.csv, SampleSubmission.csv) should be given in the SETTINGS.json file before running any of the following scripts.
+Note: The original data files from Kaggle (Output_TargetID_Mapping.csv, RepairTrain.csv, SaleTrain.csv) should be placed in the Data folder given in the SETTINGS.json file before running any of the following scripts.
 
 #Training the model
 Run train.R script, which will  
